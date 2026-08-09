@@ -1,0 +1,642 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orino — B2B Wholesale Market</title>
+<meta name="description" content="Orino — Iraq and the Kurdistan Region's first B2B wholesale marketplace. Download free for iOS and Android.">
+<meta name="theme-color" content="#160537">
+<link rel="icon" type="image/png" href="orino-icon.png">
+<link rel="apple-touch-icon" href="orino-icon.png">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Orino — B2B Wholesale Market">
+<meta property="og:description" content="Iraq and the Kurdistan Region's first wholesale platform. Browse thousands of products, order in bulk, track delivery.">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --ground:#F4F1F8;
+    --ground-2:#FFFFFF;
+    --ink:#1B0645;
+    --ink-2:#584A79;
+    --brand:#3B0F92;
+    --lift:#7C4DFF;
+    --signal:#FFB020;
+    --line:rgba(27,6,69,.13);
+    --card-shadow:0 1px 2px rgba(27,6,69,.05), 0 12px 34px -18px rgba(27,6,69,.35);
+
+    /* fixed brand block — same in both themes, deliberately */
+    --deep:#160537;
+    --deep-2:#2A0A6E;
+    --on-deep:#F4F1F8;
+    --on-deep-2:#B9A9E8;
+
+    --display:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --body:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
+    --ku:"Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;
+
+    --maxw:1140px;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#120430;
+      --ground-2:#1A0743;
+      --ink:#EEEAF9;
+      --ink-2:#A99ACB;
+      --brand:#9B6BFF;
+      --lift:#B79BFF;
+      --line:rgba(238,234,249,.14);
+      --card-shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 38px -20px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#120430; --ground-2:#1A0743; --ink:#EEEAF9; --ink-2:#A99ACB;
+    --brand:#9B6BFF; --lift:#B79BFF; --line:rgba(238,234,249,.14);
+    --card-shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 38px -20px rgba(0,0,0,.8);
+  }
+  :root[data-theme="light"]{
+    --ground:#F4F1F8; --ground-2:#FFFFFF; --ink:#1B0645; --ink-2:#584A79;
+    --brand:#3B0F92; --lift:#7C4DFF; --line:rgba(27,6,69,.13);
+    --card-shadow:0 1px 2px rgba(27,6,69,.05), 0 12px 34px -18px rgba(27,6,69,.35);
+  }
+
+  /* ---------- base ---------- */
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img,svg{max-width:100%}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:24px}
+  .display{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.98;
+           text-wrap:balance;margin:0}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+           margin:0}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:40;background:rgba(22,5,55,.82);
+       backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+       border-bottom:1px solid rgba(244,241,248,.09)}
+  .nav-in{display:flex;align-items:center;gap:16px;height:72px}
+  /* horizontal lockup composed from the supplied mark + wordmark artwork */
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .brand .bm{height:36px;width:auto;flex:none}
+  .brand .bw{height:16px;width:auto;flex:none}
+  .nav-spacer{flex:1}
+  .nav-cta{display:none;text-decoration:none;font-size:13px;font-weight:700;
+           background:var(--signal);color:#2A1400;padding:9px 18px;border-radius:999px}
+  @media(min-width:760px){.nav-cta{display:inline-block}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;background:var(--deep);color:var(--on-deep);overflow:hidden;
+        padding-block:clamp(52px,8vw,96px) 0}
+  .hero::before{content:"";position:absolute;inset:0;background:
+      radial-gradient(120% 80% at 50% -10%, rgba(124,77,255,.42), transparent 62%),
+      radial-gradient(70% 55% at 88% 26%, rgba(255,176,32,.10), transparent 70%);
+      pointer-events:none}
+  .hero::after{content:"";position:absolute;inset:0;background-image:var(--grain);
+      opacity:.045;mix-blend-mode:overlay;pointer-events:none}
+  .ghost{position:absolute;inset-inline-start:50%;top:11%;translate:-50% 0;
+         width:min(600px,88vw);height:auto;opacity:.05;pointer-events:none;z-index:0}
+
+  .hero-in{position:relative;z-index:2;display:grid;gap:clamp(38px,5vw,56px);
+           grid-template-columns:1fr;align-items:end}
+  @media(min-width:940px){.hero-in{grid-template-columns:1.03fr .97fr;gap:40px}}
+
+  .hero-copy{padding-bottom:clamp(40px,6vw,86px)}
+  .tag{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(244,241,248,.2);
+       border-radius:999px;padding:7px 15px 7px 11px;font-size:12.5px;color:var(--on-deep-2);
+       background:rgba(244,241,248,.05);margin-bottom:24px}
+  .tag i{width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none;
+         box-shadow:0 0 0 4px rgba(255,176,32,.2)}
+  h1.display{font-size:clamp(38px,6.4vw,70px);color:var(--on-deep)}
+  h1.display em{font-style:normal;color:var(--signal)}
+  .lede{max-width:46ch;margin:22px 0 0;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.68;
+        color:var(--on-deep-2)}
+  .page[dir="rtl"] .lede{line-height:1.95}
+
+  .stores{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .store{display:inline-flex;align-items:center;gap:12px;text-decoration:none;
+         background:var(--on-deep);color:var(--deep);border-radius:14px;padding:11px 20px 11px 16px;
+         transition:transform .18s ease, box-shadow .18s ease;
+         box-shadow:0 10px 24px -14px rgba(0,0,0,.9)}
+  .store:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(0,0,0,.95)}
+  .store svg{width:24px;height:24px;flex:none}
+  .store span{display:block;line-height:1.25;text-align:start}
+  .store small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+               text-transform:uppercase;opacity:.6}
+  .store strong{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.01em;
+                font-family:var(--display)}
+
+  .facts{display:flex;flex-wrap:wrap;gap:26px;margin-top:36px;padding-top:26px;
+         border-top:1px solid rgba(244,241,248,.13)}
+  .fact strong{display:block;font-family:var(--display);font-size:22px;font-weight:800;
+               color:var(--on-deep);letter-spacing:-.02em}
+  .fact span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+             text-transform:uppercase;color:var(--on-deep-2);margin-top:5px}
+  .page[dir="rtl"] .fact span{font-family:var(--ku);letter-spacing:0;font-size:12px;text-transform:none}
+
+  /* ---------- phone ---------- */
+  .phone-stage{position:relative;display:flex;justify-content:center;align-items:flex-end;
+               min-height:340px}
+  .phone{position:relative;z-index:2;width:min(290px,74vw);border-radius:42px;
+         background:#0B0320;padding:9px;
+         box-shadow:0 0 0 1.5px rgba(244,241,248,.16), 0 50px 80px -40px rgba(0,0,0,.95),
+                    0 0 90px -30px rgba(124,77,255,.7)}
+  /* the in-app purple is fixed — the phone screen is white in both themes */
+  /* height follows the content so the mock never crushes at narrow widths */
+  .screen{position:relative;background:#fff;border-radius:34px;overflow:hidden;
+          color:#1B0645;direction:rtl;font-family:var(--ku);
+          display:flex;flex-direction:column;--app:#4C1D95}
+  /* app-screen.png drives the phone's height so the screenshot is never cropped;
+     if it is missing the img removes itself and the CSS mockup below shows instead */
+  .shot{position:relative;z-index:6;display:block;width:100%;height:auto}
+  .has-shot .notch,.has-shot .status,.has-shot .scr-pad,.has-shot .tabs{display:none}
+  .notch{position:absolute;top:0;inset-inline-start:50%;translate:-50% 0;width:44%;height:20px;
+         background:#0B0320;border-radius:0 0 14px 14px;z-index:5}
+  .status{display:flex;justify-content:space-between;padding:7px 16px 2px;font-size:9px;
+          font-weight:700;font-family:var(--mono);color:#1B0645}
+  .scr-pad{flex:1;padding:5px 11px 12px}
+  .top{display:flex;align-items:center;gap:6px}
+  .search{flex:1;display:flex;align-items:center;gap:7px;background:#F1EFF6;border-radius:12px;
+          padding:8px 11px;font-size:8.5px;color:#8B82A3}
+  .bell{width:27px;height:27px;flex:none;border-radius:50%;background:#F1EFF6;display:grid;
+        place-items:center;font-size:11px;color:#57496F}
+  .chips{display:flex;gap:5px;margin-top:8px;overflow:hidden}
+  .chip{font-size:7.5px;padding:6px 10px;border-radius:999px;background:#F4F2F9;color:#57496F;
+        white-space:nowrap}
+  .chip.on{background:#12102B;color:#fff}
+
+  .promo{position:relative;overflow:hidden;margin-top:8px;border-radius:12px;background:#F7F5FC;
+         padding:9px 10px 10px;display:flex;align-items:center;gap:9px}
+  .promo .wave{position:absolute;inset-inline-start:-22%;bottom:-58%;width:98%;aspect-ratio:1;
+               background:var(--app);border-radius:50%}
+  .promo .ph{position:relative;z-index:2;width:36px;height:48px;border-radius:6px;background:#fff;
+             flex:none;box-shadow:0 3px 9px rgba(27,6,69,.22);display:grid;
+             grid-template-columns:1fr 1fr;gap:2px;padding:4px 3px;align-content:start}
+  .promo .ph i{background:#E7E1F6;border-radius:1.5px;height:9px}
+  .promo .txt{position:relative;z-index:2}
+  .promo p{margin:0;font-size:7.5px;line-height:1.6;color:var(--app);font-weight:700}
+  .badges{display:flex;gap:4px;margin-top:6px}
+  .badges span{font-family:var(--display);font-size:5px;font-weight:700;letter-spacing:.02em;
+               background:#12102B;color:#fff;border-radius:3px;padding:3px 6px;white-space:nowrap}
+  .dots{display:flex;justify-content:center;gap:4px;margin-top:6px}
+  .dots i{width:5px;height:5px;border-radius:999px;background:#DFD8EF}
+  .dots i.on{width:15px;background:var(--app)}
+
+  /* the category rail scrolls, so the fifth column is deliberately cut off */
+  .cats{direction:ltr;display:grid;grid-template-columns:repeat(4,1fr) 34%;gap:5px;
+        margin-top:9px;overflow:hidden}
+  .cat{text-align:center}
+  .cat i{display:grid;place-items:center;aspect-ratio:1;border-radius:50%;font-size:15px;
+         font-style:normal;background:#F3F0FA;box-shadow:0 1px 4px rgba(27,6,69,.08)}
+  .cat.on i{box-shadow:inset 0 0 0 1.5px var(--app)}
+  .cat b{display:block;font-size:6px;font-weight:600;color:#57496F;margin-top:4px;
+         white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cat.on b{color:var(--app)}
+
+  .row-head{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px}
+  .row-head b{font-size:9.5px}
+  .row-head span{font-size:6.5px;color:var(--app);font-weight:700}
+  .goods{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:7px}
+  .good{border:1px solid #EFECF6;border-radius:10px;overflow:hidden;background:#fff}
+  .good .img{position:relative;display:grid;place-items:center;aspect-ratio:1;font-size:19px;
+             background:#F6F4FB}
+  .good .heart{position:absolute;top:4px;inset-inline-start:4px;width:13px;height:13px;
+               border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(27,6,69,.2);
+               display:grid;place-items:center;font-size:7px;line-height:1;color:#9A90B4}
+  .good .nm{display:block;font-size:6px;font-weight:600;line-height:1.4;padding:4px 4px 2px;
+            color:#1B0645;height:20px;overflow:hidden}
+  .good .pr{display:block;font-family:var(--mono);font-size:6px;color:var(--app);font-weight:700;
+            padding:0 4px 5px}
+
+  .tabs{direction:ltr;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px 11px;
+        background:#fff;border-top:1px solid #F0EDF7;margin-top:auto}
+  .tabs div{text-align:center;font-size:12px;color:#B4ACC6}
+  .tabs div.on{color:var(--app)}
+  .tabs div b{display:block;font-size:5.5px;font-weight:700;margin-top:2px}
+  .tabs div.on em{display:inline-grid;place-items:center;width:22px;height:15px;border-radius:7px;
+                  background:#EFE9FC;font-style:normal}
+
+  .float{position:absolute;z-index:5;width:max-content;white-space:nowrap;
+         background:rgba(255,255,255,.98);color:var(--deep);border-radius:14px;
+         padding:10px 16px 10px 10px;display:flex;align-items:center;gap:11px;
+         box-shadow:0 22px 44px -24px rgba(0,0,0,.9), 0 0 0 1px rgba(27,6,69,.07)}
+  .float .fi{width:32px;height:32px;flex:none;border-radius:10px;display:grid;place-items:center;
+             background:rgba(76,29,149,.09);color:#4C1D95}
+  .float .fi svg{width:17px;height:17px}
+  .float strong{display:block;font-family:var(--display);font-size:14.5px;font-weight:750;
+                letter-spacing:-.02em;line-height:1.2}
+  .float span{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;
+              text-transform:uppercase;color:#6F6390;margin-top:3px}
+  .float-a{inset-inline-start:0;top:12%}
+  .float-b{inset-inline-end:0;bottom:15%}
+  /* only shown once the hero is two-column and there is room beside the phone */
+  @media(max-width:939px){.float{display:none}}
+
+  /* ---------- arc divider ---------- */
+  .arc{display:block;width:100%;height:auto}
+  .arc-top{background:var(--ground)}
+  .band{background:var(--ground);padding-block:clamp(64px,8vw,104px)}
+  .band,.cta{scroll-margin-top:84px}
+  .band-alt{background:var(--ground-2);border-block:1px solid var(--line)}
+
+  .sec-head{max-width:60ch;margin-bottom:clamp(34px,4.5vw,52px)}
+  .sec-head .eyebrow{color:var(--brand)}
+  .sec-head h2{font-size:clamp(27px,3.9vw,42px);margin:14px 0 0;color:var(--ink)}
+  .sec-head p{margin:16px 0 0;color:var(--ink-2);font-size:16.5px;line-height:1.7;max-width:52ch}
+
+  /* ---------- features ---------- */
+  .grid{display:grid;gap:18px;grid-template-columns:1fr}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
+  .card{background:var(--ground-2);border:1px solid var(--line);border-radius:18px;padding:24px;
+        box-shadow:var(--card-shadow);display:flex;flex-direction:column;gap:11px;
+        transition:transform .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-3px);border-color:var(--brand)}
+  .band-alt .card{background:var(--ground)}
+  .card .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+            background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);
+            margin-bottom:4px}
+  .card .ic svg{width:20px;height:20px}
+  .card h3{margin:0;font-family:var(--display);font-size:17.5px;font-weight:750;letter-spacing:-.01em}
+  .page[dir="rtl"] .card h3{font-family:var(--ku);font-weight:700}
+  .card p{margin:0;color:var(--ink-2);font-size:14.5px;line-height:1.65}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;gap:0;grid-template-columns:1fr;counter-reset:s}
+  @media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{padding:26px 0;border-top:1px solid var(--line);position:relative}
+  @media(min-width:820px){
+    .step{padding:0 30px;border-top:0;border-inline-start:1px solid var(--line)}
+    .step:first-child{padding-inline-start:0;border-inline-start:0}
+  }
+  .step .n{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--signal);
+           font-weight:700}
+  .step h3{margin:12px 0 8px;font-family:var(--display);font-size:19px;font-weight:750;
+           letter-spacing:-.015em}
+  .page[dir="rtl"] .step h3{font-family:var(--ku);font-weight:700}
+  .step p{margin:0;color:var(--ink-2);font-size:14.5px;line-height:1.65}
+
+  /* ---------- cta ---------- */
+  .cta{position:relative;background:var(--deep);color:var(--on-deep);overflow:hidden;
+       padding-block:clamp(68px,9vw,110px)}
+  .cta::before{content:"";position:absolute;inset:0;
+      background:radial-gradient(90% 130% at 50% 120%, rgba(124,77,255,.45), transparent 60%);
+      pointer-events:none}
+  .cta::after{content:"";position:absolute;inset:0;background-image:var(--grain);opacity:.05;
+      mix-blend-mode:overlay;pointer-events:none}
+  .cta-in{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;
+          align-items:center}
+  .cta .mark{width:200px;max-width:60vw;height:auto;margin-bottom:30px}
+  .cta h2{font-size:clamp(29px,4.4vw,48px);color:var(--on-deep);max-width:18ch}
+  .cta p{margin:18px 0 0;color:var(--on-deep-2);font-size:16.5px;line-height:1.7;max-width:46ch}
+  .cta .stores{justify-content:center;margin-top:34px}
+
+  .socials{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:34px;
+           padding-top:32px;border-top:1px solid rgba(244,241,248,.13);width:100%;max-width:640px}
+  .soc{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:14px;
+       font-weight:600;color:var(--on-deep);border:1px solid rgba(244,241,248,.22);
+       border-radius:999px;padding:10px 20px;transition:background .2s,border-color .2s,transform .18s}
+  .soc:hover{background:rgba(244,241,248,.1);border-color:rgba(244,241,248,.45);transform:translateY(-2px)}
+  .soc svg{width:17px;height:17px}
+
+  /* ---------- footer ---------- */
+  .foot{background:var(--deep);color:var(--on-deep-2);
+        border-top:1px solid rgba(244,241,248,.11);padding-block:26px;font-size:13px}
+  .foot-in{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+  .foot-brand{opacity:.9;gap:9px}
+  .foot-brand .bm{height:26px}
+  .foot-brand .bw{height:12px}
+  .foot a{text-decoration:none;opacity:.85}
+  .foot a:hover{opacity:1;color:var(--on-deep)}
+  .foot .links{display:flex;gap:20px;flex-wrap:wrap}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .store:hover,.soc:hover,.card:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="page" id="page">
+
+  <!-- nav -->
+  <nav class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">
+        <img class="bm" src="orino-mark.png" alt="">
+        <img class="bw" src="orino-wordmark.png" alt="Orino">
+      </a>
+      <div class="nav-spacer"></div>
+      <a class="nav-cta" href="#get">Get the app</a>
+    </div>
+  </nav>
+
+  <!-- hero -->
+  <header class="hero" id="top">
+    <img class="ghost" src="orino-mark.png" alt="" aria-hidden="true">
+    <div class="wrap hero-in">
+
+      <div class="hero-copy">
+        <p class="tag"><i></i><span>Iraq &amp; the Kurdistan Region's first wholesale platform</span></p>
+
+        <h1 class="display">The wholesale market,<br><em>in your pocket</em></h1>
+
+        <p class="lede">Orino connects wholesalers directly with shop owners. Browse thousands of products, order in bulk and track delivery — without ever leaving your shop.</p>
+
+        <div class="stores">
+          <a class="store" href="https://apps.apple.com/iq/app/orino-b2b-wholesale-market/id6780992090"
+             target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.04c-.03-2.9 2.37-4.3 2.48-4.37-1.35-1.98-3.46-2.25-4.21-2.28-1.79-.18-3.5 1.05-4.41 1.05-.91 0-2.31-1.03-3.8-1-1.95.03-3.75 1.13-4.76 2.88-2.03 3.52-.52 8.73 1.46 11.59.97 1.4 2.12 2.97 3.63 2.91 1.46-.06 2.01-.94 3.77-.94 1.76 0 2.26.94 3.8.91 1.57-.03 2.56-1.42 3.52-2.83 1.11-1.62 1.57-3.19 1.59-3.27-.03-.02-3.05-1.17-3.07-4.65zM14.2 3.6c.8-.98 1.35-2.33 1.2-3.68-1.16.05-2.57.77-3.4 1.74-.74.86-1.39 2.24-1.22 3.56 1.3.1 2.62-.66 3.42-1.62z"/></svg>
+            <span>
+              <small>Download on the</small>
+              <strong>App Store</strong>
+            </span>
+          </a>
+
+          <a class="store" href="https://play.google.com/store/apps/details?id=com.orino.app"
+             target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#00A0FF" d="M3.6 1.8 13.9 12 3.6 22.2c-.4-.2-.6-.7-.6-1.3V3.1c0-.6.2-1.1.6-1.3z"/>
+              <path fill="#00D96E" d="M3.6 1.8c.3-.2.8-.2 1.3.1l12.6 7.2-3.6 2.9L3.6 1.8z"/>
+              <path fill="#FFBF00" d="M17.5 9.1l3.4 2c1 .5 1 1.4 0 2l-3.4 1.9-3.6-3 3.6-2.9z"/>
+              <path fill="#FF3A44" d="M3.6 22.2 13.9 12l3.6 2.9-12.6 7.2c-.5.3-1 .3-1.3.1z"/>
+            </svg>
+            <span>
+              <small>Get it on</small>
+              <strong>Google Play</strong>
+            </span>
+          </a>
+        </div>
+
+        <div class="facts">
+          <div class="fact">
+            <strong>Free</strong>
+            <span>To download &amp; use</span>
+          </div>
+          <div class="fact">
+            <strong>iOS · Android</strong>
+            <span>Both platforms</span>
+          </div>
+          <div class="fact">
+            <strong>10+ categories</strong>
+            <span>Food to electronics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- phone -->
+      <div class="phone-stage">
+        <div class="float float-a">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+          <div>
+            <strong>Tracked</strong>
+            <span>Every delivery</span>
+          </div>
+        </div>
+        <div class="float float-b">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 8h16m0 0-4-4m4 4-4 4M20 16H4m0 0 4 4m-4-4 4-4"/></svg></div>
+          <div>
+            <strong>Direct</strong>
+            <span>From the seller</span>
+          </div>
+        </div>
+
+        <div class="phone" role="img"
+             aria-label="Orino app home screen showing categories and products / ڕوونمای سەرەکی ئەپی ئۆرینۆ">
+          <div class="screen">
+            <img class="shot" src="app-screen.png" alt="The Orino app home screen"
+                 onload="this.closest('.screen').classList.add('has-shot')"
+                 onerror="this.remove()">
+            <div class="notch"></div>
+            <div class="status"><span>9:41</span><span>▪ ▪ ▪</span></div>
+            <div class="scr-pad">
+              <div class="top">
+                <div class="search"><span>⌕</span><span>گەڕان لە بەرهەمەکان…</span></div>
+                <div class="bell">🔔</div>
+              </div>
+              <div class="chips">
+                <span class="chip on">هەموو بەشەکان</span>
+                <span class="chip">جل و بەرگ و مۆدە</span>
+                <span class="chip">ماڵ و چێشتخانە</span>
+              </div>
+              <div class="promo">
+                <div class="wave"></div>
+                <div class="ph"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="txt">
+                  <p>یەکەمین پلاتفۆرمی کۆفرۆشی<br>لە عێراق و هەرێمی کوردستاندا</p>
+                  <div class="badges"><span>App Store</span><span>Google Play</span></div>
+                </div>
+              </div>
+              <div class="dots"><i></i><i class="on"></i></div>
+              <div class="cats">
+                <div class="cat on"><i>🛍️</i><b>هەمووی</b></div>
+                <div class="cat"><i>🍳</i><b>ماڵ و چێشتخانە</b></div>
+                <div class="cat"><i>💄</i><b>جوانکاری و پاک…</b></div>
+                <div class="cat"><i>📚</i><b>شتومەکی نوو…</b></div>
+                <div class="cat"><i>🔧</i><b>کەلوپەلی…</b></div>
+                <div class="cat"><i>👕</i><b>جل و بەرگ و م…</b></div>
+                <div class="cat"><i>🥫</i><b>خواردن و خوا…</b></div>
+                <div class="cat"><i>📱</i><b>ئەلیکترۆنیات</b></div>
+                <div class="cat"><i>🧸</i><b>یاری و ئامێری…</b></div>
+                <div class="cat"><i>🧴</i><b>پاککەرەوە و…</b></div>
+              </div>
+              <div class="row-head"><b>نوێترین دەستکەوتەکان</b><span>بینینی هەموو ←</span></div>
+              <div class="goods">
+                <div class="good">
+                  <div class="img">🥤<span class="heart">♡</span></div>
+                  <b class="nm">مەتارەی ئاو</b><span class="pr">$4.20</span>
+                </div>
+                <div class="good">
+                  <div class="img">🍼<span class="heart">♡</span></div>
+                  <b class="nm">شامپۆی تایبەت بە مندااڵن</b><span class="pr">$6.75</span>
+                </div>
+                <div class="good">
+                  <div class="img">🧴<span class="heart">♡</span></div>
+                  <b class="nm">شاشەی خۆر</b><span class="pr">$3.90</span>
+                </div>
+              </div>
+            </div>
+            <div class="tabs">
+              <div class="on"><em>🏠</em><b>بازار</b></div>
+              <div>🚚<b>گەیاندن</b></div>
+              <div>🛍<b>بزنسەکان</b></div>
+              <div>🏠<b>فرۆشگاکەم</b></div>
+              <div>👤<b>پرۆفایل</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- arc divider -->
+  <div class="arc-top">
+    <svg class="arc" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 H1200 V6 Q600 82 0 6 Z" fill="#160537"/>
+    </svg>
+  </div>
+
+  <!-- features -->
+  <section class="band" id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Why Orino</p>
+        <h2 class="display">The region's wholesale floor, in one app</h2>
+        <p>Built for the shop owners and wholesalers of Iraq and the Kurdistan Region — in your language, at your prices.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 9l2-5h14l2 5M3 9v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9M9 13h6"/></svg></div>
+          <h3>Thousands of products</h3>
+          <p>From clothing and electronics to home goods and cosmetics — every category in one place.</p>
+        </article>
+
+        <article class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Direct wholesale pricing</h3>
+          <p>Prices come straight from the seller. No middlemen, no hidden margins.</p>
+        </article>
+
+        <article class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"><path d="M1 5h13v11H1zM14 8h4l3 4v4h-7z"/><circle cx="5.5" cy="19" r="2"/><circle cx="17.5" cy="19" r="2"/></svg></div>
+          <h3>Delivery tracking</h3>
+          <p>From the moment you place an order until it reaches your shop door.</p>
+        </article>
+
+        <article class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-7 9 7v11M9 21v-6h6v6"/></svg></div>
+          <h3>Your own storefront</h3>
+          <p>A wholesaler? Open your storefront and put your products in front of thousands of shops.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- steps -->
+  <section class="band band-alt" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">How it works</p>
+        <h2 class="display">Download to doorstep, in three steps</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">01</div>
+          <h3>Download the app</h3>
+          <p>Free from the App Store or Google Play. Sign up with your phone number.</p>
+        </div>
+        <div class="step">
+          <div class="n">02</div>
+          <h3>Browse and order</h3>
+          <p>Search the categories, compare seller prices, and place a bulk order.</p>
+        </div>
+        <div class="step">
+          <div class="n">03</div>
+          <h3>Receive at your shop</h3>
+          <p>Track the shipment and take delivery right at your counter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- cta + socials -->
+  <section class="cta" id="get">
+    <div class="wrap cta-in">
+      <img class="mark" src="orino-lockup.png" alt="" aria-hidden="true">
+      <h2 class="display">Start today</h2>
+      <p>Download Orino and join the wholesale market of Iraq and the Kurdistan Region.</p>
+
+      <div class="stores">
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.orino.app"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#00A0FF" d="M3.6 1.8 13.9 12 3.6 22.2c-.4-.2-.6-.7-.6-1.3V3.1c0-.6.2-1.1.6-1.3z"/>
+            <path fill="#00D96E" d="M3.6 1.8c.3-.2.8-.2 1.3.1l12.6 7.2-3.6 2.9L3.6 1.8z"/>
+            <path fill="#FFBF00" d="M17.5 9.1l3.4 2c1 .5 1 1.4 0 2l-3.4 1.9-3.6-3 3.6-2.9z"/>
+            <path fill="#FF3A44" d="M3.6 22.2 13.9 12l3.6 2.9-12.6 7.2c-.5.3-1 .3-1.3.1z"/>
+          </svg>
+          <span>
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </span>
+        </a>
+        <a class="store" href="https://apps.apple.com/iq/app/orino-b2b-wholesale-market/id6780992090"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 12.04c-.03-2.9 2.37-4.3 2.48-4.37-1.35-1.98-3.46-2.25-4.21-2.28-1.79-.18-3.5 1.05-4.41 1.05-.91 0-2.31-1.03-3.8-1-1.95.03-3.75 1.13-4.76 2.88-2.03 3.52-.52 8.73 1.46 11.59.97 1.4 2.12 2.97 3.63 2.91 1.46-.06 2.01-.94 3.77-.94 1.76 0 2.26.94 3.8.91 1.57-.03 2.56-1.42 3.52-2.83 1.11-1.62 1.57-3.19 1.59-3.27-.03-.02-3.05-1.17-3.07-4.65zM14.2 3.6c.8-.98 1.35-2.33 1.2-3.68-1.16.05-2.57.77-3.4 1.74-.74.86-1.39 2.24-1.22 3.56 1.3.1 2.62-.66 3.42-1.62z"/></svg>
+          <span>
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+      </div>
+
+      <div class="socials">
+        <a class="soc" href="https://www.instagram.com/orino.app?igsh=MXY1enN3djN5eHR4aA=="
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+               stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/>
+            <circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+          <span>@orino.app</span>
+        </a>
+        <a class="soc" href="https://www.facebook.com/share/14j6jnD1949/"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+          <span>Orino</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <a class="brand foot-brand" href="#top">
+        <img class="bm" src="orino-mark.png" alt="">
+        <img class="bw" src="orino-wordmark.png" alt="Orino">
+      </a>
+      <div class="links">
+        <a href="https://play.google.com/store/apps/details?id=com.orino.app" target="_blank" rel="noopener">Google Play</a>
+        <a href="https://apps.apple.com/iq/app/orino-b2b-wholesale-market/id6780992090" target="_blank" rel="noopener">App Store</a>
+        <a href="https://www.instagram.com/orino.app?igsh=MXY1enN3djN5eHR4aA==" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/share/14j6jnD1949/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <span>© 2026 Orino. All rights reserved.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // smooth in-page scrolling for the nav links
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
+
