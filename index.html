@@ -129,8 +129,10 @@
         color:var(--on-deep-2)}
   .page[dir="rtl"] .lede{line-height:1.95}
 
-  .stores{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-  .store{display:inline-flex;align-items:center;gap:12px;text-decoration:none;
+  /* both badges share one width at every size — "Download on the" is wider than
+     "Get it on", so intrinsic sizing renders them ragged */
+  .stores{display:flex;gap:12px;margin-top:32px;width:100%;max-width:392px}
+  .store{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;gap:12px;text-decoration:none;
          background:var(--on-deep);color:var(--deep);border-radius:14px;padding:11px 20px 11px 16px;
          transition:transform .18s ease, box-shadow .18s ease;
          box-shadow:0 10px 24px -14px rgba(0,0,0,.9)}
@@ -252,8 +254,8 @@
      vs "Get it on"), so left alone they render ragged and wrap onto two rows.
      Force one row of equal halves and scale the contents down to fit 360px. */
   @media(max-width:620px){
-    .stores{flex-wrap:nowrap;gap:10px}
-    .store{flex:1 1 0;min-width:0;overflow:hidden;padding:10px 12px;gap:9px}
+    .stores{gap:10px}
+    .store{overflow:hidden;padding:10px 12px;gap:9px}
     .store svg{width:21px;height:21px}
     .store span{min-width:0}
     .store small{font-size:8px;letter-spacing:.06em}
@@ -317,7 +319,7 @@
   .cta .mark{width:200px;max-width:60vw;height:auto;margin-bottom:30px}
   .cta h2{font-size:clamp(29px,4.4vw,48px);color:var(--on-deep);max-width:18ch}
   .cta p{margin:18px 0 0;color:var(--on-deep-2);font-size:16.5px;line-height:1.7;max-width:46ch}
-  .cta .stores{justify-content:center;margin-top:34px}
+  .cta .stores{margin-top:34px}
 
   /* contact block: WhatsApp numbers, then the social links */
   .contact{width:100%;max-width:640px;margin-top:34px;padding-top:32px;
